@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionDatabase {
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection()  {
         Connection connection = null;
 
-        try (FileInputStream propFile = new FileInputStream("C:\\Users\\Red\\IdeaProjects\\dataDriverFramework-homework\\src\\main\\resources\\db.properties")) {
+        try (FileInputStream propFile = new FileInputStream("src/main/resources/db.properties")) {
             Properties properties = new Properties();
             properties.load(propFile);
 
@@ -22,6 +22,8 @@ public class ConnectionDatabase {
             connection = DriverManager.getConnection(url, user, password);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return connection;
     }
